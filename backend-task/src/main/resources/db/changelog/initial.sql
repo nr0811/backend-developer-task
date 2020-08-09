@@ -1,0 +1,25 @@
+
+
+CREATE TABLE list_item (id BIGINT NOT NULL, date_created TIMESTAMP WITHOUT TIME ZONE, date_updated TIMESTAMP WITHOUT TIME ZONE, content VARCHAR(255), note_id BIGINT, CONSTRAINT list_item_pkey PRIMARY KEY (id));
+
+
+CREATE TABLE application_user (id BIGINT NOT NULL, date_created TIMESTAMP WITHOUT TIME ZONE, date_updated TIMESTAMP WITHOUT TIME ZONE, first_name VARCHAR(255), last_name VARCHAR(255), password VARCHAR(255), username VARCHAR(255), CONSTRAINT application_user_pkey PRIMARY KEY (id));
+
+
+CREATE TABLE note (id BIGINT NOT NULL, date_created TIMESTAMP WITHOUT TIME ZONE, date_updated TIMESTAMP WITHOUT TIME ZONE, note_type INTEGER, shared BOOLEAN NOT NULL, author_id BIGINT, folder_id BIGINT, CONSTRAINT note_pkey PRIMARY KEY (id));
+
+
+CREATE TABLE folder (id BIGINT NOT NULL, date_created TIMESTAMP WITHOUT TIME ZONE, date_updated TIMESTAMP WITHOUT TIME ZONE, CONSTRAINT folder_pkey PRIMARY KEY (id));
+
+
+ALTER TABLE note ADD CONSTRAINT foreign_key_note_to_application_user FOREIGN KEY (author_id) REFERENCES application_user (id) ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+
+ALTER TABLE list_item ADD CONSTRAINT foreign_key_list_item_no_note FOREIGN KEY (note_id) REFERENCES note (id) ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+
+ALTER TABLE note ADD CONSTRAINT foreign_key_note_to_folder FOREIGN KEY (folder_id) REFERENCES folder (id) ON UPDATE NO ACTION ON DELETE NO ACTION;
+
+
+CREATE SEQUENCE  IF NOT EXISTS hibernate_sequence AS bigint START WITH 1 INCREMENT BY 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1;
+
