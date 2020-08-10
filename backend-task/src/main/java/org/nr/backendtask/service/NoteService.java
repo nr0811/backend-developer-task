@@ -1,6 +1,6 @@
 package org.nr.backendtask.service;
 
-import org.nr.backendtask.api.dto.CreateNoteRequest;
+import org.nr.backendtask.api.dto.NoteRequest;
 import org.nr.backendtask.api.exceptions.ApiNotFoundException;
 import org.nr.backendtask.api.exceptions.ApiValidationException;
 import org.nr.backendtask.model.ApplicationUser;
@@ -16,7 +16,7 @@ public interface NoteService {
 
     Page<Note> findAllNotes(ApplicationUser applicationUser, Pageable pageable);
 
-    Note createNote(CreateNoteRequest createNoteRequest, ApplicationUser applicationUser) throws ApiNotFoundException;
+    Note createNote(NoteRequest noteRequest, ApplicationUser applicationUser) throws ApiNotFoundException;
 
-    Note updateNote(Long id, CreateNoteRequest updateNoteRequest, ApplicationUser applicationUser) throws ApiNotFoundException, ApiValidationException;
+    Note updateNote(Long id, NoteRequest updateNoteRequest, ApplicationUser applicationUser) throws ApiNotFoundException, ApiValidationException;
 }

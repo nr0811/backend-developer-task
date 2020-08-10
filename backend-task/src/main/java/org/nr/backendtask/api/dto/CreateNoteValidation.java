@@ -26,11 +26,11 @@ public @interface CreateNoteValidation {
 
 }
 
-class CreateNoteRequestValidator implements ConstraintValidator<CreateNoteValidation, CreateNoteRequest> {
+class CreateNoteRequestValidator implements ConstraintValidator<CreateNoteValidation, NoteRequest> {
 
 
     @Override
-    public boolean isValid(CreateNoteRequest value, ConstraintValidatorContext context) {
+    public boolean isValid(NoteRequest value, ConstraintValidatorContext context) {
         context.disableDefaultConstraintViolation();
         if (value.getNoteType() == NoteType.LIST) {
             boolean condition = value.getItems() != null && value.getItems().size() > 0;

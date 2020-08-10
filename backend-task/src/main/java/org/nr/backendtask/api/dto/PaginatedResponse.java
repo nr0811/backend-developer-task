@@ -24,6 +24,9 @@ public class PaginatedResponse<T> {
 
     }
 
+    public PaginatedResponse() {
+    }
+
     public long getCount() {
         return count;
     }

@@ -2,6 +2,7 @@ package org.nr.backendtask.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -14,8 +15,19 @@ public class Folder extends BaseEntity {
     @Id
     @GeneratedValue
     private Long id;
-    @OneToMany(mappedBy = "folder")
+    @OneToMany(mappedBy = "folder", orphanRemoval = true)
     private List<Note> notes = new ArrayList<>();
+
+    @Column(unique = true, nullable = false)
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @ManyToOne
     private ApplicationUser owner;

@@ -3,7 +3,7 @@ package org.nr.backendtask.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import org.nr.backendtask.api.dto.CreateNoteRequest;
+import org.nr.backendtask.api.dto.NoteRequest;
 import org.nr.backendtask.api.exceptions.ApiNotFoundException;
 import org.nr.backendtask.api.exceptions.ApiValidationException;
 import org.nr.backendtask.model.ApplicationUser;
@@ -85,24 +85,24 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public Note createNote(CreateNoteRequest createNoteRequest, ApplicationUser applicationUser) throws ApiNotFoundException {
+    public Note createNote(NoteRequest noteRequest, ApplicationUser applicationUser) throws ApiNotFoundException {
         Note note = new Note();
         note.setAuthor(applicationUser);
-        note.setShared(createNoteRequest.getShared());
-        note.setName(createNoteRequest.getName());
-        note.setNoteType(createNoteRequest.getNoteType());
+        note.setShared(noteRequest.getShared());
+        note.setName(noteRequest.getName());
+        note.setNoteType(noteRequest.getNoteType());
         Folder folder = null;
 
-        if (createNoteRequest.getFolder() != null) {
-            System.out.println(createNoteRequest.getFolder());
-            folder = getFolderForUser(createNoteRequest.getFolder(), applicationUser);
+        if (noteRequest.getFolder() != null) {
+            System.out.println(noteRequest.getFolder());
+            folder = getFolderForUser(noteRequest.getFolder(), applicationUser);
         }
 
         note.setFolder(folder);
         note = noteRepository.save(note);
-        if (createNoteRequest.getNoteType() == NoteType.LIST) {
+        if (noteRequest.getNoteType() == NoteType.LIST) {
             List<ListItem> listItemList = new ArrayList<>();
-            for (String item : createNoteRequest.getItems()) {
+            for (String item : noteRequest.getItems()) {
                 ListItem listItem = new ListItem();
                 listItem.setNote(note);
                 listItem.setContent(item);
@@ -113,7 +113,7 @@ public class NoteServiceImpl implements NoteService {
 
         } else {
             ListItem listItem = new ListItem();
-            listItem.setContent(createNoteRequest.getContent());
+            listItem.setContent(noteRequest.getContent());
             listItem.setNote(note);
             listItem = listItemRepository.save(listItem);
             note.addToItems(listItem);
@@ -126,7 +126,7 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public Note updateNote(Long id, CreateNoteRequest updateNoteRequest, ApplicationUser applicationUser) throws ApiNotFoundException, ApiValidationException {
+    public Note updateNote(Long id, NoteRequest updateNoteRequest, ApplicationUser applicationUser) throws ApiNotFoundException, ApiValidationException {
         Optional<Note> optionalNote = noteRepository.findById(id);
 
         if (optionalNote.isPresent()) {

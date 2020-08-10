@@ -110,6 +110,7 @@ public class DummyData implements CommandLineRunner {
 
 
         Folder folder = new Folder();
+        folder.setName("folder-name_" + applicationUser);
         folder.setOwner(applicationUser);
         folderRepository.save(folder);
         Note noteJ1 = new Note();

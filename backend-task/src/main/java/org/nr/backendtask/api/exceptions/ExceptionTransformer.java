@@ -55,12 +55,12 @@ public class ExceptionTransformer {
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity wrongObjectInRequestHandler(HttpServletRequest request) {
-
+    public ResponseEntity wrongObjectInRequestHandler(HttpServletRequest request, Exception ex) {
+        System.out.println(request);
         return new ExceptionResponse.Builder()
                 .withStatus(HttpStatus.BAD_REQUEST)
                 .forPath(request.getRequestURI())
-                .withMessage("Wrong parameters in body").buildResponse();
+                .withMessage(ex.getMessage()).buildResponse();
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

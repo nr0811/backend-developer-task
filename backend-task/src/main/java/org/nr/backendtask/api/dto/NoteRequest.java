@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 import org.nr.backendtask.model.NoteType;
 
 @CreateNoteValidation
-public class CreateNoteRequest {
+public class NoteRequest {
     @NotNull(message = "noteType must be of type list of text")
     private NoteType noteType;
     @NotNull(message = "shared field must not be null")
@@ -16,7 +16,7 @@ public class CreateNoteRequest {
     private Long folder;
     private List<String> items;
 
-    public CreateNoteRequest() {
+    public NoteRequest() {
     }
 
     public NoteType getNoteType() {

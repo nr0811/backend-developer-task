@@ -6,7 +6,7 @@ import java.util.Map;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.nr.backendtask.Constants;
-import org.nr.backendtask.api.dto.CreateNoteRequest;
+import org.nr.backendtask.api.dto.NoteRequest;
 import org.nr.backendtask.api.dto.NoteResponse;
 import org.nr.backendtask.api.dto.PaginatedResponse;
 import org.nr.backendtask.api.exceptions.ApiNotFoundException;
@@ -43,8 +43,8 @@ public class NoteController {
     }
 
     @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public NoteResponse updateNote(@PathVariable Long id, @RequestBody CreateNoteRequest createNoteRequest, @RequestAttribute(value = Constants.APPLICATION_USER_ATTRIBUTE) ApplicationUser applicationUser) throws ApiNotFoundException, ApiValidationException {
-        Note note = noteService.updateNote(id, createNoteRequest, applicationUser);
+    public NoteResponse updateNote(@PathVariable Long id, @RequestBody NoteRequest noteRequest, @RequestAttribute(value = Constants.APPLICATION_USER_ATTRIBUTE) ApplicationUser applicationUser) throws ApiNotFoundException, ApiValidationException {
+        Note note = noteService.updateNote(id, noteRequest, applicationUser);
         return new NoteResponse(note);
     }
 
@@ -56,8 +56,8 @@ public class NoteController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public NoteResponse createNote(@Valid @RequestBody @NotNull CreateNoteRequest createNoteRequest, @RequestAttribute(value = Constants.APPLICATION_USER_ATTRIBUTE) ApplicationUser applicationUser) throws ApiNotFoundException {
-        Note note = noteService.createNote(createNoteRequest, applicationUser);
+    public NoteResponse createNote(@Valid @RequestBody @NotNull NoteRequest noteRequest, @RequestAttribute(value = Constants.APPLICATION_USER_ATTRIBUTE) ApplicationUser applicationUser) throws ApiNotFoundException {
+        Note note = noteService.createNote(noteRequest, applicationUser);
         return new NoteResponse(note);
     }
 
