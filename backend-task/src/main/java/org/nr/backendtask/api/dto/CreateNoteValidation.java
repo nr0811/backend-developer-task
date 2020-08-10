@@ -9,18 +9,16 @@ import javax.validation.Constraint;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import javax.validation.Payload;
-
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import org.nr.backendtask.model.NoteType;
 
 
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = CreateNoteRequestValidator.class)
 @Documented
-public @interface CreateNote {
+public @interface CreateNoteValidation {
 
-    String message() default "One of content or items must be provided";
+    String message() default "Invalid content or items";
 
     Class<?>[] groups() default {};
 
@@ -28,12 +26,27 @@ public @interface CreateNote {
 
 }
 
- class CreateNoteRequestValidator implements ConstraintValidator<CreateNote,CreateNoteRequest> {
+class CreateNoteRequestValidator implements ConstraintValidator<CreateNoteValidation, CreateNoteRequest> {
 
 
+    @Override
+    public boolean isValid(CreateNoteRequest value, ConstraintValidatorContext context) {
+        context.disableDefaultConstraintViolation();
+        if (value.getNoteType() == NoteType.LIST) {
+            boolean condition = value.getItems() != null && value.getItems().size() > 0;
+            if (!condition) {
+                context.buildConstraintViolationWithTemplate("If noteType is list you must pass items").addConstraintViolation();
 
-     @Override
-     public boolean isValid(CreateNoteRequest value, ConstraintValidatorContext context) {
+            }
+            return condition;
+        } else {
+            boolean condition = value.getContent() != null;
+            if (!condition) {
+                context.buildConstraintViolationWithTemplate("If noteType is text you must pass content").addConstraintViolation();
+            }
 
-     }
- }
+            return condition;
+        }
+
+    }
+}

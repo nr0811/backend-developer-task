@@ -1,7 +1,10 @@
 package org.nr.backendtask.model;
 
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -12,15 +15,27 @@ public class Note extends BaseEntity {
     @Id
     @GeneratedValue
     private Long id;
-    @ManyToOne
+    @ManyToOne(optional = false)
     private ApplicationUser author;
+
+    @Column(nullable = false)
     private NoteType noteType;
+    @Column(nullable = false)
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     private boolean shared;
 
 
-    @OneToMany(mappedBy = "note")
-    private List<ListItem> listItems;
+    @OneToMany(mappedBy = "note", fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<ListItem> listItems = new ArrayList<>();
 
     @ManyToOne
     private Folder folder;
@@ -62,6 +77,10 @@ public class Note extends BaseEntity {
         return listItems;
     }
 
+    public void addToItems(ListItem listItem) {
+        this.listItems.add(listItem);
+    }
+
     public void setListItems(List<ListItem> listItems) {
         this.listItems = listItems;
     }
@@ -72,5 +91,18 @@ public class Note extends BaseEntity {
 
     public void setFolder(Folder folder) {
         this.folder = folder;
+    }
+
+    @Override
+    public String toString() {
+        return "Note{" +
+                "id=" + id +
+                ", author=" + author +
+                ", noteType=" + noteType +
+                ", name='" + name + '\'' +
+                ", shared=" + shared +
+                ", listItems=" + listItems +
+                ", folder=" + folder +
+                '}';
     }
 }

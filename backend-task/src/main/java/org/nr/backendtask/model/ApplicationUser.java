@@ -1,8 +1,13 @@
 package org.nr.backendtask.model;
 
+import com.sun.istack.NotNull;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class ApplicationUser extends BaseEntity {
@@ -11,11 +16,38 @@ public class ApplicationUser extends BaseEntity {
     @GeneratedValue
     private Long id;
 
+    @Column(nullable = false)
     private String firstName;
+    @Column(nullable = false)
     private String lastName;
+
+    @Column(unique = true, nullable = false)
     private String username;
+    @NotNull
+    @Column(nullable = false)
     private String password;
 
+    @OneToMany(mappedBy = "author")
+    private List<Note> notes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "owner")
+    private List<Folder> folders = new ArrayList<>();
+
+    public List<Note> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(List<Note> notes) {
+        this.notes = notes;
+    }
+
+    public List<Folder> getFolders() {
+        return folders;
+    }
+
+    public void setFolders(List<Folder> folders) {
+        this.folders = folders;
+    }
 
     public Long getId() {
         return id;

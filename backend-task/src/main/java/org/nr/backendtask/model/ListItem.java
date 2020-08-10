@@ -12,8 +12,16 @@ public class ListItem extends BaseEntity {
     @GeneratedValue
     private Long id;
     private String content;
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Note note;
+
+    public ListItem() {
+    }
+
+    public ListItem(String content, Note note) {
+        this.content = content;
+        this.note = note;
+    }
 
     public Long getId() {
         return id;
@@ -38,4 +46,5 @@ public class ListItem extends BaseEntity {
     public void setNote(Note note) {
         this.note = note;
     }
+
 }

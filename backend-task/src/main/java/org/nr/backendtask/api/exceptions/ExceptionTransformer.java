@@ -1,17 +1,19 @@
 package org.nr.backendtask.api.exceptions;
 
+import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+
 
 @ControllerAdvice
 public class ExceptionTransformer {
@@ -63,12 +65,18 @@ public class ExceptionTransformer {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity parametersInRequestNotOkHandler(HttpServletRequest request, MethodArgumentNotValidException ex) {
-        FieldError error = ex.getBindingResult().getFieldError();
+
+        Optional<ObjectError> optionalError = ex.getBindingResult().getAllErrors().stream().findFirst();
+        String error = "";
+        if (optionalError.isPresent()) {
+            error = optionalError.get().getDefaultMessage();
+        }
+
 
         return new ExceptionResponse.Builder()
                 .withStatus(HttpStatus.BAD_REQUEST)
                 .forPath(request.getRequestURI())
-                .withMessage(error.getField() + " " + error.getDefaultMessage()).buildResponse();
+                .withMessage(error).buildResponse();
     }
 
     @ExceptionHandler(ApiException.class)
