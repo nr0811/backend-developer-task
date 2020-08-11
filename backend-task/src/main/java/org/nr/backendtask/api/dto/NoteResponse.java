@@ -12,7 +12,7 @@ import org.nr.backendtask.model.NoteType;
 public class NoteResponse {
 
     private Long id;
-    private String name;
+    private String heading;
     private String author;
     private NoteType noteType;
     private boolean shared;
@@ -30,7 +30,7 @@ public class NoteResponse {
         this.author = note.getAuthor().getUsername();
         this.noteType = note.getNoteType();
         this.shared = note.isShared();
-        this.name = note.getName();
+        this.heading = note.getHeading();
         this.dateCreated = note.getDateCreated();
         this.dateUpdated = note.getDateUpdated();
         if (note.getFolder() != null) {
@@ -55,12 +55,12 @@ public class NoteResponse {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getHeading() {
+        return heading;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setHeading(String heading) {
+        this.heading = heading;
     }
 
     public String getAuthor() {

@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -13,7 +14,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class Note extends BaseEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @ManyToOne(optional = false)
     private ApplicationUser author;
@@ -21,14 +22,14 @@ public class Note extends BaseEntity {
     @Column(nullable = false)
     private NoteType noteType;
     @Column(nullable = false)
-    private String name;
+    private String heading;
 
-    public String getName() {
-        return name;
+    public String getHeading() {
+        return heading;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setHeading(String name) {
+        this.heading = name;
     }
 
     private boolean shared;
@@ -99,7 +100,7 @@ public class Note extends BaseEntity {
                 "id=" + id +
                 ", author=" + author +
                 ", noteType=" + noteType +
-                ", name='" + name + '\'' +
+                ", name='" + heading + '\'' +
                 ", shared=" + shared +
                 ", listItems=" + listItems +
                 ", folder=" + folder +

@@ -7,6 +7,7 @@ import org.nr.backendtask.model.ApplicationUser;
 import org.nr.backendtask.model.Note;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 
 public interface NoteService {
@@ -14,7 +15,7 @@ public interface NoteService {
 
     boolean deleteOne(Long id, ApplicationUser applicationUser) throws ApiNotFoundException;
 
-    Page<Note> findAllNotes(ApplicationUser applicationUser, Pageable pageable);
+    Page<Note> findAllNotes(ApplicationUser applicationUser, Pageable pageable, Sort sort);
 
     Note createNote(NoteRequest noteRequest, ApplicationUser applicationUser) throws ApiNotFoundException;
 

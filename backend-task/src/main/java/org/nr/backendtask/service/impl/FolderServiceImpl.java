@@ -99,9 +99,9 @@ public class FolderServiceImpl implements FolderService {
 
 
         PaginatedResponse<FolderResponse> response = new PaginatedResponse<>();
-        response.setCount(folders.getTotalElements());
+        response.setTotalElements(folders.getTotalElements());
         response.setPage(folders.getNumber());
-        response.setPerPage(folders.getSize());
+        response.setSize(folders.getSize());
         response.setResults(content);
         return response;
 

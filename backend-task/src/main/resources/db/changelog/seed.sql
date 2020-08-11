@@ -1,0 +1,64 @@
+INSERT INTO public.application_user (id, date_created, date_updated, first_name, last_name, password, username) VALUES (1, '2020-08-11 19:38:48.132393', '2020-08-11 19:38:48.132393', 'Janez', 'Novak', '$2a$10$Mh.0TtJU/forbWyRxk0mHueoAJdIzVibbLqGtpRxbERPeRx9J6HWi', 'janezn');
+INSERT INTO public.application_user (id, date_created, date_updated, first_name, last_name, password, username) VALUES (2, '2020-08-11 19:38:48.355068', '2020-08-11 19:38:48.355068', 'Elon', 'Musk', '$2a$10$2eVYx/6ODS7Dy6T.chjiWuc.0MeXFi6x7dx3/OrXb67srj81L.Wnm', 'elonm');
+INSERT INTO public.application_user (id, date_created, date_updated, first_name, last_name, password, username) VALUES (3, '2020-08-11 19:38:48.516217', '2020-08-11 19:38:48.516217', 'Jeff', 'Bezos', '$2a$10$vucWOvanWmkpkBnBTYcwa.zwISt6.kimyg73uv3DGhM2McZ.r0E7C', 'jeffb');
+
+
+INSERT INTO public.folder (id, date_created, date_updated, name, owner_id) VALUES (3, '2020-08-11 20:25:44.855594', '2020-08-11 20:27:10.926228', 'blue origin', 3);
+INSERT INTO public.folder (id, date_created, date_updated, name, owner_id) VALUES (4, '2020-08-11 20:26:16.122760', '2020-08-11 20:27:20.799738', 'aws', 3);
+INSERT INTO public.folder (id, date_created, date_updated, name, owner_id) VALUES (5, '2020-08-11 20:27:57.504201', '2020-08-11 20:27:57.504201', 'tesla', 2);
+INSERT INTO public.folder (id, date_created, date_updated, name, owner_id) VALUES (6, '2020-08-11 20:28:04.244086', '2020-08-11 20:28:04.244086', 'spaceX', 2);
+INSERT INTO public.folder (id, date_created, date_updated, name, owner_id) VALUES (7, '2020-08-11 20:28:40.544975', '2020-08-11 20:28:40.544975', 'KAKO PRIPRAVITI KOMPOT', 1);
+INSERT INTO public.folder (id, date_created, date_updated, name, owner_id) VALUES (8, '2020-08-11 20:28:57.660932', '2020-08-11 20:28:57.660932', 'GESLA', 1);
+
+insert into public.note (id, date_created, date_updated, heading, note_type, shared, author_id, folder_id) values (7, '2020-08-11 21:20:16.180916', '2020-08-11 21:20:16.180916', 'BlueOriginPublicPlans', 'list', 'true', 3, 3);
+insert into public.note (id, date_created, date_updated, heading, note_type, shared, author_id, folder_id) values (11, '2020-08-11 21:22:07.271283', '2020-08-11 21:22:07.271283', 'BlueOriginPrivatePlans', 'text', 'false', 3, 3);
+insert into public.note (id, date_created, date_updated, heading, note_type, shared, author_id, folder_id) values (13, '2020-08-11 21:22:33.484854', '2020-08-11 21:22:33.484854', 'WIFE', 'text', 'true', 3, null);
+insert into public.note (id, date_created, date_updated, heading, note_type, shared, author_id, folder_id) values (15, '2020-08-11 21:23:00.743309', '2020-08-11 21:23:00.743309', 'TAXES 2020', 'text', 'false', 3, null);
+insert into public.note (id, date_created, date_updated, heading, note_type, shared, author_id, folder_id) values (17, '2020-08-11 21:23:54.073741', '2020-08-11 21:23:54.073741', 'AWS SERVICES', 'list', 'true', 3, null);
+insert into public.note (id, date_created, date_updated, heading, note_type, shared, author_id, folder_id) values (22, '2020-08-11 21:25:20.508065', '2020-08-11 21:25:20.508065', 'AWS NEXT SERVICES', 'list', 'false', 3, 4);
+insert into public.note (id, date_created, date_updated, heading, note_type, shared, author_id, folder_id) values (24, '2020-08-11 21:26:53.681659', '2020-08-11 21:26:53.681659', 'TESLA FEATURE PRODUCTS', 'list', 'false', 2, 5);
+insert into public.note (id, date_created, date_updated, heading, note_type, shared, author_id, folder_id) values (26, '2020-08-11 21:27:36.137865', '2020-08-11 21:27:36.137865', 'CARS', 'list', 'true', 2, 5);
+insert into public.note (id, date_created, date_updated, heading, note_type, shared, author_id, folder_id) values (31, '2020-08-11 21:28:35.858799', '2020-08-11 21:28:35.858799', 'next plan', 'text', 'false', 2, 6);
+insert into public.note (id, date_created, date_updated, heading, note_type, shared, author_id, folder_id) values (33, '2020-08-11 21:29:01.268978', '2020-08-11 21:29:01.268978', 'next plan', 'text', 'true', 2, 6);
+insert into public.note (id, date_created, date_updated, heading, note_type, shared, author_id, folder_id) values (35, '2020-08-11 21:29:53.467873', '2020-08-11 21:29:53.467873', 'Achievments', 'text', 'true', 2, null);
+insert into public.note (id, date_created, date_updated, heading, note_type, shared, author_id, folder_id) values (37, '2020-08-11 21:30:06.013869', '2020-08-11 21:30:06.013869', 'Failures', 'text', 'true', 2, null);
+insert into public.note (id, date_created, date_updated, heading, note_type, shared, author_id, folder_id) values (39, '2020-08-11 21:30:57.494029', '2020-08-11 21:30:57.494029', 'Marketing budget', 'text', 'false', 2, null);
+insert into public.note (id, date_created, date_updated, heading, note_type, shared, author_id, folder_id) values (41, '2020-08-11 21:31:49.661790', '2020-08-11 21:31:49.661790', 'KAKO ODPRETI MAPO', 'text', 'true', 1, null);
+insert into public.note (id, date_created, date_updated, heading, note_type, shared, author_id, folder_id) values (43, '2020-08-11 21:33:27.524741', '2020-08-11 21:33:27.524741', 'TRGOVINA LISTEK', 'text', 'true', 1, null);
+insert into public.note (id, date_created, date_updated, heading, note_type, shared, author_id, folder_id) values (45, '2020-08-11 21:36:16.025928', '2020-08-11 21:36:16.025928', 'GESLA', 'list', 'false', 1, 8);
+insert into public.note (id, date_created, date_updated, heading, note_type, shared, author_id, folder_id) values (49, '2020-08-11 21:36:48.684180', '2020-08-11 21:36:48.684180', 'TRGOVINE', 'list', 'true', 1, 7);
+insert into public.note (id, date_created, date_updated, heading, note_type, shared, author_id, folder_id) values (53, '2020-08-11 21:37:30.389543', '2020-08-11 21:37:30.389543', 'SESTAVITNE', 'list', 'true', 1, 7);
+
+
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (8, '2020-08-11 21:20:16.189919', '2020-08-11 21:20:16.189919', 'IPO', 7);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (9, '2020-08-11 21:20:16.191917', '2020-08-11 21:20:16.191917', 'toMOON', 7);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (10, '2020-08-11 21:20:16.193915', '2020-08-11 21:20:16.193915', 'toMars', 7);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (12, '2020-08-11 21:22:07.280282', '2020-08-11 21:22:07.280282', 'nasaFunding', 11);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (14, '2020-08-11 21:22:33.493861', '2020-08-11 21:22:33.493861', 'LEFT', 13);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (16, '2020-08-11 21:23:00.756750', '2020-08-11 21:23:00.756750', '0% federal muahaha', 15);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (18, '2020-08-11 21:23:54.082737', '2020-08-11 21:23:54.082737', 's3', 17);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (19, '2020-08-11 21:23:54.083737', '2020-08-11 21:23:54.083737', 'rds', 17);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (20, '2020-08-11 21:23:54.085735', '2020-08-11 21:23:54.085735', 'ecs', 17);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (21, '2020-08-11 21:23:54.087741', '2020-08-11 21:23:54.087741', 'lambda', 17);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (23, '2020-08-11 21:25:20.517066', '2020-08-11 21:25:20.517066', 'disaster region', 22);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (25, '2020-08-11 21:26:53.689647', '2020-08-11 21:26:53.689647', 'space shuttle', 24);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (27, '2020-08-11 21:27:36.145863', '2020-08-11 21:27:36.145863', 'X', 26);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (28, '2020-08-11 21:27:36.147864', '2020-08-11 21:27:36.147864', 'S', 26);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (29, '2020-08-11 21:27:36.148865', '2020-08-11 21:27:36.148865', 'Roadster', 26);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (30, '2020-08-11 21:27:36.150863', '2020-08-11 21:27:36.150863', 'Cybertruck', 26);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (32, '2020-08-11 21:28:35.867798', '2020-08-11 21:28:35.867798', 'IPO', 31);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (34, '2020-08-11 21:29:01.276979', '2020-08-11 21:29:01.276979', 'Moon rocket mission', 33);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (36, '2020-08-11 21:29:53.475873', '2020-08-11 21:29:53.475873', 'Paypal,Tesla,BoringCompany...', 35);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (38, '2020-08-11 21:30:06.022871', '2020-08-11 21:30:06.022871', 'A lot', 37);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (40, '2020-08-11 21:30:57.502001', '2020-08-11 21:30:57.502001', '0, i can do it all', 39);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (42, '2020-08-11 21:31:49.669792', '2020-08-11 21:31:49.669792', 'KLINI Z DESNO MISKO NA ODPRI', 41);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (44, '2020-08-11 21:33:27.534717', '2020-08-11 21:33:27.534717', 'Lutenica, Čevapčiči Arvaj,Ajvar Mercator(Ne natureta predrago) ', 43);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (46, '2020-08-11 21:36:16.034918', '2020-08-11 21:36:16.034918', 'password', 45);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (47, '2020-08-11 21:36:16.037931', '2020-08-11 21:36:16.037931', 'geslo', 45);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (48, '2020-08-11 21:36:16.039919', '2020-08-11 21:36:16.039919', 12345678, 45);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (50, '2020-08-11 21:36:48.692179', '2020-08-11 21:36:48.692179', 'hofer', 49);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (51, '2020-08-11 21:36:48.694179', '2020-08-11 21:36:48.694179', 'lidl', 49);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (52, '2020-08-11 21:36:48.696191', '2020-08-11 21:36:48.696191', 'mercator', 49);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (54, '2020-08-11 21:37:30.398560', '2020-08-11 21:37:30.398560', 'rabarbara', 53);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (55, '2020-08-11 21:37:30.399542', '2020-08-11 21:37:30.399542', 'cukr', 53);
+insert into public.list_item (id, date_created, date_updated, content, note_id) values (56, '2020-08-11 21:37:30.401543', '2020-08-11 21:37:30.401543', 'jesh', 53);

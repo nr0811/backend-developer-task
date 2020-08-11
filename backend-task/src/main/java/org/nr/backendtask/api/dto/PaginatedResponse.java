@@ -7,19 +7,23 @@ import org.springframework.data.domain.Page;
 
 public class PaginatedResponse<T> {
 
-    private long count;
+    private long totalElements;
 
     private int page;
 
-    private int perPage;
+    private int size;
+
+    private int totalPages;
 
     private List<T> results;
 
+
     public <DATA> PaginatedResponse(Page<DATA> pageResults, Function<DATA, T> function) {
 
-        this.count = pageResults.getTotalElements();
+        this.totalElements = pageResults.getTotalElements();
         this.page = pageResults.getNumber();
-        this.perPage = pageResults.getSize();
+        this.size = pageResults.getSize();
+        this.totalPages = pageResults.getTotalPages();
         this.results = pageResults.getContent().stream().map(function).collect(Collectors.toList());
 
     }
@@ -27,12 +31,12 @@ public class PaginatedResponse<T> {
     public PaginatedResponse() {
     }
 
-    public long getCount() {
-        return count;
+    public long getTotalElements() {
+        return totalElements;
     }
 
-    public void setCount(long count) {
-        this.count = count;
+    public void setTotalElements(long totalElements) {
+        this.totalElements = totalElements;
     }
 
     public int getPage() {
@@ -43,12 +47,12 @@ public class PaginatedResponse<T> {
         this.page = page;
     }
 
-    public int getPerPage() {
-        return perPage;
+    public int getSize() {
+        return size;
     }
 
-    public void setPerPage(int perPage) {
-        this.perPage = perPage;
+    public void setSize(int size) {
+        this.size = size;
     }
 
     public List<T> getResults() {
@@ -57,5 +61,13 @@ public class PaginatedResponse<T> {
 
     public void setResults(List<T> results) {
         this.results = results;
+    }
+
+    public int getTotalPages() {
+        return totalPages;
+    }
+
+    public void setTotalPages(int totalPages) {
+        this.totalPages = totalPages;
     }
 }

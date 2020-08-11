@@ -17,7 +17,11 @@ import org.nr.backendtask.security.IgnoreAuth;
 import org.nr.backendtask.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,6 +32,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -71,8 +76,27 @@ public class NoteController {
 
     @GetMapping
     @IgnoreAuth
-    public PaginatedResponse<NoteResponse> getAll(@RequestAttribute(value = Constants.APPLICATION_USER_ATTRIBUTE, required = false) ApplicationUser applicationUser, Pageable pageable) {
-        Page<Note> notes = noteService.findAllNotes(applicationUser, pageable);
+    public PaginatedResponse<NoteResponse> getAll(@RequestAttribute(value = Constants.APPLICATION_USER_ATTRIBUTE, required = false) ApplicationUser applicationUser, @PageableDefault(page = 0, size = 20) @SortDefault.SortDefaults({
+            @SortDefault(sort = "heading", direction = Sort.Direction.ASC, caseSensitive = false),
+            @SortDefault(sort = "shared", direction = Sort.Direction.ASC, caseSensitive = false)
+    }) Pageable pageable) {
+
+        Sort sort = Sort.by(Sort.Direction.ASC, "id");
+        Sort passedSort = pageable.getSort();
+
+        Sort.Order orderHeading = passedSort.getOrderFor("heading");
+        Sort.Order orderShared = passedSort.getOrderFor("shared");
+
+        if (orderShared != null) {
+            sort = passedSort;
+        }
+        if (orderHeading != null) {
+            sort = passedSort;
+        }
+
+
+        Pageable formattedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
+        Page<Note> notes = noteService.findAllNotes(applicationUser, formattedPageable, null);
         return new PaginatedResponse<>(notes, NoteResponse::new);
     }
 

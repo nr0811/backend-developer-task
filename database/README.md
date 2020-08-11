@@ -1,6 +1,3 @@
 # Database
 
-Provide a file for database import with prepared mock data for:
-* users
-* folders
-* notes
+Seed data for everything is done through initial migration [here](../backend-task/src/main/resources/db/changelog)

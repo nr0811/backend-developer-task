@@ -17,7 +17,9 @@ import org.nr.backendtask.repository.NoteRepository;
 import org.nr.backendtask.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -76,7 +78,9 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public Page<Note> findAllNotes(ApplicationUser applicationUser, Pageable pageable) {
+    public Page<Note> findAllNotes(ApplicationUser applicationUser, Pageable pageable, Sort sort) {
+
+        System.out.println(pageable);
         if (applicationUser == null) {
             return noteRepository.findAllBySharedTrue(pageable);
         } else {
@@ -89,7 +93,7 @@ public class NoteServiceImpl implements NoteService {
         Note note = new Note();
         note.setAuthor(applicationUser);
         note.setShared(noteRequest.getShared());
-        note.setName(noteRequest.getName());
+        note.setHeading(noteRequest.getHeading());
         note.setNoteType(noteRequest.getNoteType());
         Folder folder = null;
 
@@ -134,8 +138,8 @@ public class NoteServiceImpl implements NoteService {
             if (!note.getAuthor().getId().equals(applicationUser.getId())) {
                 throw new ApiNotFoundException("Note not found");
             }
-            if (updateNoteRequest.getName() != null) {
-                note.setName(updateNoteRequest.getName());
+            if (updateNoteRequest.getHeading() != null) {
+                note.setHeading(updateNoteRequest.getHeading());
             }
             if (updateNoteRequest.getShared() != null) {
                 note.setShared(updateNoteRequest.getShared());

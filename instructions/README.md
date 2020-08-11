@@ -1,11 +1,15 @@
-# Setup
+## DOCKER SETUP
 
-Provide a file with instructions on how to set up and use the API:
-* dependencies
-* variables to be set
-* run configs
-* file system permissions
-* ...
+#### FROM PREBUILD IMAGE
 
-### Optional
-You can provide Docker and Docker Compose files instead.
+
+#### MANUAL IMAGE BUILD
+
+
+
+## MANUAL SETUP
+
+
+
+
+

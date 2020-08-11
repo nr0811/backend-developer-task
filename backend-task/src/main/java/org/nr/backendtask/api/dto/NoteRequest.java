@@ -2,6 +2,7 @@ package org.nr.backendtask.api.dto;
 
 import java.util.List;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import org.nr.backendtask.model.NoteType;
 
 @CreateNoteValidation
@@ -10,8 +11,9 @@ public class NoteRequest {
     private NoteType noteType;
     @NotNull(message = "shared field must not be null")
     private Boolean shared;
-    @NotNull(message = "name must not be empty")
-    private String name;
+    @NotNull(message = "heading must not be empty")
+    @Size(min = 1,message = "heading must be at least one character long")
+    private String heading;
     private String content;
     private Long folder;
     private List<String> items;
@@ -35,12 +37,12 @@ public class NoteRequest {
         this.shared = shared;
     }
 
-    public String getName() {
-        return name;
+    public String getHeading() {
+        return heading;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setHeading(String heading) {
+        this.heading = heading;
     }
 
     public String getContent() {
