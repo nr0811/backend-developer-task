@@ -23,6 +23,13 @@ public interface NoteRepository extends CrudRepository<Note, Long> {
 
     Page<Note> findAllBySharedTrue(Pageable pageable);
 
+    Page<Note> findAllBySharedTrueAndFolder_Id(Long folderId, Pageable pageable);
+
+    Page<Note> findAllBySharedFalseAndFolder_IdAndAuthor(Long folderId, ApplicationUser applicationUser, Pageable pageable);
+
     Page<Note> findAllByAuthorOrSharedTrue(ApplicationUser applicationUser, Pageable pageable);
+
+    Page<Note> findAllByAuthorAndSharedFalse(ApplicationUser applicationUser,Pageable pageable);
+
 
 }

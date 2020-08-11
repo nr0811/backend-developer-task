@@ -17,9 +17,7 @@ import org.nr.backendtask.repository.NoteRepository;
 import org.nr.backendtask.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -78,12 +76,30 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public Page<Note> findAllNotes(ApplicationUser applicationUser, Pageable pageable, Sort sort) {
+    public Page<Note> findAllNotes(ApplicationUser applicationUser, Pageable pageable, Long folderFilter, String shared) {
 
-        System.out.println(pageable);
         if (applicationUser == null) {
+            if (shared != null && shared.toLowerCase().equals("false")) {
+                return Page.empty(pageable);
+            }
+            if (folderFilter != null) {
+                return noteRepository.findAllBySharedTrueAndFolder_Id(folderFilter, pageable);
+            }
+
             return noteRepository.findAllBySharedTrue(pageable);
         } else {
+            if (folderFilter != null) {
+                if (shared != null && shared.toLowerCase().equals("true")) {
+                    return noteRepository.findAllBySharedTrueAndFolder_Id(folderFilter, pageable);
+                } else if (shared != null && shared.toLowerCase().equals("false")) {
+                    return noteRepository.findAllBySharedFalseAndFolder_IdAndAuthor(folderFilter, applicationUser, pageable);
+                }
+            } else {
+                if (shared != null && shared.toLowerCase().equals("false")) {
+                    return noteRepository.findAllByAuthorAndSharedFalse(applicationUser, pageable);
+                }
+            }
+
             return noteRepository.findAllByAuthorOrSharedTrue(applicationUser, pageable);
         }
     }
@@ -98,7 +114,6 @@ public class NoteServiceImpl implements NoteService {
         Folder folder = null;
 
         if (noteRequest.getFolder() != null) {
-            System.out.println(noteRequest.getFolder());
             folder = getFolderForUser(noteRequest.getFolder(), applicationUser);
         }
 
@@ -125,7 +140,6 @@ public class NoteServiceImpl implements NoteService {
         }
 
         note = noteRepository.save(note);
-        System.out.println(note);
         return note;
     }
 

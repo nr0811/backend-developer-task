@@ -15,7 +15,7 @@ public interface NoteService {
 
     boolean deleteOne(Long id, ApplicationUser applicationUser) throws ApiNotFoundException;
 
-    Page<Note> findAllNotes(ApplicationUser applicationUser, Pageable pageable, Sort sort);
+    Page<Note> findAllNotes(ApplicationUser applicationUser, Pageable pageable,Long folderId,String shared);
 
     Note createNote(NoteRequest noteRequest, ApplicationUser applicationUser) throws ApiNotFoundException;
 

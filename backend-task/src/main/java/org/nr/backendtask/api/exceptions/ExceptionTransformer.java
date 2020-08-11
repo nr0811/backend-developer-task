@@ -3,6 +3,7 @@ package org.nr.backendtask.api.exceptions;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -18,6 +19,20 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 @ControllerAdvice
 public class ExceptionTransformer {
 
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity dateIntegrityHandler(HttpServletRequest request, DataIntegrityViolationException e) {
+        String constraint = "integrity violation exception";
+        if (e.getCause() instanceof ConstraintViolationException) {
+            ConstraintViolationException constraintViolationException = (ConstraintViolationException) e.getCause();
+            constraint = constraintViolationException.getConstraintName();
+        }
+
+        return new ExceptionResponse.Builder()
+                .withStatus(HttpStatus.BAD_REQUEST)
+                .forPath(request.getServletPath())
+                .withMessage("Constraint violation:" + constraint).buildResponse();
+    }
+
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity methodNotAllowedHandler(HttpServletRequest request) {
         return new ExceptionResponse.Builder()
@@ -28,7 +43,6 @@ public class ExceptionTransformer {
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity wrongArgumentHandler(HttpServletRequest request) {
-        System.out.println(request);
         return new ExceptionResponse.Builder()
                 .withStatus(HttpStatus.BAD_REQUEST)
                 .forPath(request.getServletPath())
@@ -56,7 +70,7 @@ public class ExceptionTransformer {
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity wrongObjectInRequestHandler(HttpServletRequest request, Exception ex) {
-        System.out.println(request);
+
         return new ExceptionResponse.Builder()
                 .withStatus(HttpStatus.BAD_REQUEST)
                 .forPath(request.getRequestURI())

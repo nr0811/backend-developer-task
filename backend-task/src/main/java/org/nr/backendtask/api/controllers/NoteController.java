@@ -79,7 +79,7 @@ public class NoteController {
     public PaginatedResponse<NoteResponse> getAll(@RequestAttribute(value = Constants.APPLICATION_USER_ATTRIBUTE, required = false) ApplicationUser applicationUser, @PageableDefault(page = 0, size = 20) @SortDefault.SortDefaults({
             @SortDefault(sort = "heading", direction = Sort.Direction.ASC, caseSensitive = false),
             @SortDefault(sort = "shared", direction = Sort.Direction.ASC, caseSensitive = false)
-    }) Pageable pageable) {
+    }) Pageable pageable, @RequestParam(value = "folder", required = false) Long folder, @RequestParam(value = "shared", required = false) String shared) {
 
         Sort sort = Sort.by(Sort.Direction.ASC, "id");
         Sort passedSort = pageable.getSort();
@@ -96,7 +96,7 @@ public class NoteController {
 
 
         Pageable formattedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
-        Page<Note> notes = noteService.findAllNotes(applicationUser, formattedPageable, null);
+        Page<Note> notes = noteService.findAllNotes(applicationUser, formattedPageable,folder,shared);
         return new PaginatedResponse<>(notes, NoteResponse::new);
     }
 
