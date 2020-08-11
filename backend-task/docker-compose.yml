@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  app:
+    image: nejcr/backend-task-nr0811:latest
+    ports:
+      - "8042:8842"
+    environment:
+      - POSTGRES_PASSWORD=cund
+      - POSTGRES_USER=cund
+      - JDBC_URL=jdbc:postgresql://mypostgres:5432/postgres
+    depends_on:
+      - mypostgres
+  mypostgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=cund
+      - POSTGRES_USER=cund
+      - POSTGRES_DB=postgres
